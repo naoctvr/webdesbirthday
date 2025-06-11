@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Birthday Party Wati</title>
+  <style>
+    body {
+      font-family: 'Comic Neue', cursive, Arial, sans-serif;
+      background-image: url('Papel de parede de morangos rosa.jpeg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background-color: rgba(255, 155, 155, 0.9);
+      padding: 20px 30px 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px #d6336c;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    h1, h2, h3 {
+      color: #d6336c;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    p, ul {
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      padding: 5px 0;
+    }
+
+    .section {
+      display: none;
+      margin-bottom: 30px;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    button {
+      background-color: #ff69b4;
+      border: none;
+      padding: 10px 18px;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    button:hover {
+      background-color: #e055a0;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .button-container button {
+      font-size: 1.8rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      padding: 0;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .centered-button {
+      display: block;
+      margin: 0 auto 15px auto;
+      max-width: 220px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      max-width: 650px;
+      margin: 0 auto 15px auto;
+      display: block;
+      padding: 10px;
+      border: 1px solid #faa0a0;
+      border-radius: 6px;
+      font-size: 1rem;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #d6336c;
+    }
+
+    .radio-group label {
+      margin-right: 20px;
+      font-weight: normal;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .radio-group input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+    }
+
+    .gift-section {
+      background-color: #f9d4d4;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .copy-btn {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      margin-left: 8px;
+      vertical-align: middle;
+      cursor: pointer;
+      border-radius: 6px;
+      background-color: #d6336c;
+      color: white;
+      border: none;
+      transition: background-color 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background-color: #b32b57;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    .emoji-anim {
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px 20px 30px 20px;
+      }
+      form input, form textarea {
+        font-size: 0.9rem;
+      }
+      button {
+        font-size: 0.9rem;
+        padding: 8px 14px;
+      }
+      h1, h2, h3 {
+        font-size: 1.3rem;
+      }
+      .nav-buttons {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .nav-buttons button {
+        width: 100%;
+      }
+      .button-container {
+        gap: 12px;
+      }
+    }
+    #countdown-time span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  margin: 0 5px;
+  background-color: #e055a0;
+  color: rgb(234, 224, 234);
+  border-radius: 40%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.countdown-title {
+    color: #7a4848;
+}
+
+
+#countdown {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#countdown table {
+    margin: 0 auto;
+    font-size: 1.2rem;
+    border-collapse: collapse;
+    background: #f7d7dd;
+    border-radius: 10px;
+}
+
+#countdown table tr:first-child {
+    color: #e055a0;
+}
+
+#countdown-time {
+    color: #444;
+}
+
+#countdown table tr:last-child {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #d6336c;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+  #countdown table th,
+  #countdown table td {
+    padding: 0 17px; /* Tambah jarak horizontal */
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+  #countdown table {
+    font-size: 0.9rem;
+    width: 100%;
+  }
+
+  #countdown-time span {
+    width: 40px;
+    height: 40px;
+    margin: 0 3px;
+    font-size: 1rem;
+  }
+
+  #countdown table th,
+  #countdown table td {
+    padding: 0 10px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Slide 0: Nama Tamu -->
+    <div class="section active gift-section" id="slide-0">
+      <h2>To: Nayla <span id="namaTamuTarget">[Nayla,]</span> 💌</h2>
+      <p style="text-align:center;">🍓Welcome to Wati's 19th birthday invitation!🍓<br><br>I'm so happy to have you as part of this celebration.</p>
+        <div class="nav-buttons" style="justify-content: flex-end;">
+        <button onclick="changeSlide(1)">Next</button>
+      </div>
+    </div>
+
+    <!-- Slide 1 -->
+    <div class="section gift-section" id="slide-1">
+      <h1><span class="emoji-anim">🍓🍓🍓</span><br>Welcome To<br>19th Wati Birthday Party</h1>
+      <p><strong>Theme:</strong> Sweet Strawberry Pink</p>
+      <p><strong>Dresscode:</strong> Couquette </p>
+      <p>October 12, 2025, 3:00 PM until the event ends.</p>
+      <div id="countdown">
+          <h3 class="countdown-title">The event will begin soon🎉</h3>
+          <table>
+            <tr>
+              <th>Days</th><th>Hours</th><th>Minutes</th><th>Second</th>
+            </tr>
+            <tr id="countdown-time">
+              <td><span id="days">00</span></td>
+              <td><span id="hours">00</span></td>
+              <td><span id="minutes">00</span></td>
+              <td><span id="seconds">00</span></td>
+            </tr>
+            <tr></tr>
+          </table>
+        </div>
+      <h3>Event Location:</h3>
+      <p><strong>Arasta Alpha Cafe</strong><br>
+      Ruko Widodo, Jl. Overste Isdiman, Jatiwinangun, Purwokerto Lor,<br>
+      Kec. Purwokerto Tim., Kabupaten Banyumas, Jawa Tengah 53114</p>
+      <button class="centered-button" onclick="window.open('https://maps.app.goo.gl/gpd4zvXfSWRZV84C8')">View on Google Maps</button>
+      <div class="nav-buttons" style="justify-content: space-between;">
+  <button onclick="changeSlide(-1)">Prev</button>
+  <button onclick="changeSlide(1)">Next</button>
+</div>
+
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="section gift-section" id="slide-2">
+      <h2><span class="emoji-anim">🍓</span>Schedule<span class="emoji-anim">🍓</span></h2>
+      <h3>Birthday Party Schedule:</h3>
+      <ul>
+      <li>3:00 PM – 🎉 Grand Opening & Welcome Speech</li>
+      <li>3:30 PM – 🎲 Fun Games & Entertainment</li>
+      <li>4:30 PM – 🎂 Birthday Cake Cutting Ceremony</li>
+      <li>5:00 PM – 🍽️ Dinner & Mingling</li>
+      <li>6:00 PM – 🎊 Closing & Farewell</li>
+      </ul>
+       <div class="nav-buttons" style="justify-content: space-between;">
+  <button onclick="changeSlide(-1)">Prev</button>
+  <button onclick="changeSlide(1)">Next</button>
+  </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="section gift-section" id="slide-3">
+      <h2><span class="emoji-anim">🍓💌🍓</span><br>Send Wishes and Confirm Attendance</h2>
+      <form id="rsvp-form">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" name="nama" required />
+        </div>
+        <div class="form-group">
+          <label>Username IG</label>
+          <input type="text" name="instagram" required />
+        </div>
+        <div class="form-group radio-group" style="text-align: center; margin-bottom: 15px;">
+          <label>
+            <input type="radio" id="Attending" name="Attendance" value="Attending" required />
+            Attending
+          </label>
+          <label>
+            <input type="radio" id="Not_Attending" name="Attendance" value="Not Attending" />
+            Not Attending
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Message or Reason for not attending</label>
+          <textarea rows="4" name="Reason for not attending"></textarea>
+        </div>
+        <button type="submit">Send</button>
+      </form>
+       <div class="nav-buttons" style="justify-content: space-between;">
+  <button onclick="changeSlide(-1)">Prev</button>
+  <button onclick="changeSlide(1)">Next</button>
+</div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="section gift-section" id="slide-4">
+      <h2>🎁 Token of Love 🎁</h2>
+      <p>Thank you for adding joy and excitement to the birthday celebration with your presence and lovely gift.</p>
+      <p><strong>🎁 Cashless 🍓 Send a Gift 🎁</strong></p>
+      <p>
+        🍓BRI: 1234 5678 9101 1121
+        <button class="copy-btn" onclick="copyText('1234567891011121')">Copy</button>
+      </p>
+      <p>
+        🍓BCA: 9876 5432 1098 7654
+        <button class="copy-btn" onclick="copyText('9876543210987654')">Copy</button>
+      </p>
+      <p><strong>🏡Home Address:</strong><br />H8CQ+7QH, Dusun 2, Blater, Kec. Kalimanah, Kabupaten Purbalingga, Jawa Tengah 53371</p>
+      <button class="centered-button" onclick="window.open('https://www.google.com/maps/search/?api=1&query=H8CQ%2B7QH,+Dusun+2,+Blater,+Kec.+Kalimanah,+Kabupaten+Purbalingga,+Jawa+Tengah+53371', '_blank')">View on Google Maps</button>
+       <div class="nav-buttons" style="justify-content: space-between;">
+  <button onclick="changeSlide(-1)">Prev</button>
+  <button onclick="changeSlide(1)">Next</button>
+</div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="section gift-section" id="slide-5">
+      <h2><span class="emoji-anim">🌸</span><br><span class="emoji-anim">🍓</span>Thank you for your attention<span class="emoji-anim">🍓</span></h2>
+      <p style="text-align:center;">Hope to see you at the event. -Wati</p>
+      <div style="text-align:center; margin-top:20px;">
+        <button onclick="confirmClose()">Close</button>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button class="button" onclick="changeToSlide(0)">💌</button>
+      <button class="button" onclick="changeToSlide(1)">🏡</button>
+      <button class="button" onclick="changeToSlide(2)">🎉</button>
+      <button class="button" onclick="changeToSlide(4)">💬</button>
+      <button class="button" onclick="changeToSlide(5)">🎁</button>
+      <button class="button" onclick="changeToSlide(6)">📌</button>
+    </div>
+  </div>
+
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const namaTamu = getQueryParam("to");
+    if (namaTamu) {
+      document.getElementById("namaTamuTarget").textContent = decodeURIComponent(namaTamu);
+    } else {
+      document.getElementById("namaTamuTarget").textContent = "the Special Guest";
+    }
+
+    let currentSlide = 0;
+    const totalSlides = 6;
+
+    function showSlide(n) {
+      if (n < 0) n = 0;
+      if (n > totalSlides) n = totalSlides;
+      currentSlide = n;
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('slide-' + n).classList.add('active');
+    }
+
+    function changeSlide(n) {
+      showSlide(currentSlide + n);
+    }
+
+    function changeToSlide(n) {
+      showSlide(n);
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Text copied successfully!');
+      }).catch(err => {
+        alert('Failed to copy text: ' + err);
+      });
+    }
+
+    function confirmClose() {
+      if (confirm("Are you sure you want to close this invitation?")) {
+        window.close();
+      }
+    }
+
+    document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for your confirmation & wishes! 🎂');
+      this.reset();
+    });
+
+    showSlide(currentSlide);
+
+    const countdownTargetDate = new Date("2025-10-12T15:00:00+07:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = countdownTargetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown-time").innerHTML = "<td colspan='4'>🎉 Acara sedang berlangsung!</td>";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
